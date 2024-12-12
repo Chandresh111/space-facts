@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Saturn Facts</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #1a1a1a;
+            color: #fff;
+        }
+
+        .fact-card {
+            background-color: #2d2d2d;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 10px 0;
+            transition: transform 0.3s ease;
+        }
+
+        .fact-card:hover {
+            transform: translateX(10px);
+            background-color: #3d3d3d;
+        }
+
+        h1 {
+            color: #ffd700;
+            text-align: center;
+        }
+
+        .fact-number {
+            color: #ffd700;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        #search-box {
+            width: 100%;
+            padding: 10px;
+            margin: 20px 0;
+            border-radius: 4px;
+            border: none;
+            background-color: #3d3d3d;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <h1>Saturn Facts Explorer</h1>
+    <input type="text" id="search-box" placeholder="Search facts...">
+    <div id="facts-container"></div>
+
+    <script>
+        const saturnFacts = {
+            "saturn_facts": [
+                {
+                    "id": 1,
+                    "fact": "Saturn is the sixth planet from the Sun and the second-largest planet in our solar system"
+                },
+                // ... (rest of your JSON facts)
+            ]
+        };
+
+        function displayFacts(facts) {
+            const container = document.getElementById('facts-container');
+            container.innerHTML = '';
+            
+            facts.forEach(factObj => {
+                const factCard = document.createElement('div');
+                factCard.className = 'fact-card';
+                factCard.innerHTML = `
+                    <span class="fact-number">#${factObj.id}</span>
+                    ${factObj.fact}
+                `;
+                container.appendChild(factCard);
+            });
+        }
+
+        function searchFacts(searchTerm) {
+            const filteredFacts = saturnFacts.saturn_facts.filter(factObj => 
+                factObj.fact.toLowerCase().includes(searchTerm.toLowerCase())
+            );
+            displayFacts(filteredFacts);
+        }
+
+        // Initial display
+        displayFacts(saturnFacts.saturn_facts);
+
+        // Search functionality
+        document.getElementById('search-box').addEventListener('input', (e) => {
+            searchFacts(e.target.value);
+        });
+    </script>
+</body>
+</html>
